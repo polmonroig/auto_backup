@@ -110,11 +110,14 @@ def print_client(projects, client):
         print("========================================")
 
 def usage():
-
+    print('Welcome to the automatic project backup manager!\n')
+    print('This application has some basic commands')
+    print('    help: is how you got here')
+    print('    fetch [project/client/all]: displays information about a set of files')
+    print('    copy [project] [category] [from] [to]: copies files from a project into the corresponding directory\n')
 
 def ask_info(projects):
     # print(projects)
-
     print('Type "help", "fetch", "copy" or "backup".')
     command = input('>> ')
     while command != 'exit':
@@ -122,7 +125,7 @@ def ask_info(projects):
             usage()
         else:
             print_all()
-        command = input('>> ')
+        command = input('>>> ')
 
 
 
