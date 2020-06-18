@@ -15,6 +15,7 @@ project_name = 'project'
 footage_name = 'footage'
 render_name = 'render'
 cache_name = 'cache'
+separation_names = [project_name, footage_name, render_name, cache_name]
 
 # separation directories
 project_dir = 'project/'
