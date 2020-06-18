@@ -54,24 +54,36 @@ def format_size(size):
     size = "{:.3f}".format(size) + ' GB'
     return size
 
-def print_directory(p, separations, root, name):
+def get_size(p, separations, root, name, separation):
+    dir_size = 'NA'
     for sep in separations:
-        path = os.path.join(root, sep, p)
-        size = recursive_get_size(path)
-        main_name = os.path.join(name, sep, p)
-        print(main_name, format_size(size))
+        if sep == separation:
+            path = os.path.join(root, sep, p)
+            size = recursive_get_size(path)
+            dir_size = format_size(size)
+            break
 
-def print_separation(name, sep):
+    return dir_size
+
+def print_separation(p, projects, name, sep):
     print(sep)
+    sep = sep + '/'
+    work_size = 'NA'
+    storage_size = 'NA'
+    backup_size = 'NA'
     if paths.work_dir in projects[name]:
         work = projects[name][paths.work_dir]
-        print_directory(p, work, paths.work_dir, paths.work_name)
+        work_size = get_size(p, work, paths.work_dir, paths.work_name, sep)
     if paths.storage_dir in projects[name]:
         storage = projects[name][paths.storage_dir]
-        print_directory(p, storage, paths.storage_dir, paths.backup_name)
+        storage_size = get_size(p, storage, paths.storage_dir, paths.storage_name, sep)
     if paths.backup_dir in projects[name]:
         backup = projects[name][paths.backup_dir]
-        print_directory(p, backup, paths.backup_dir, paths.storage_name)
+        backup_size = get_size(p, backup, paths.backup_dir, paths.backup_name, sep)
+
+    print('     '+ paths.work_name +'........ ' + work_size)
+    print('     '+ paths.storage_name +' .... ' + storage_size)
+    print('     '+ paths.backup_name +' ........ ' + backup_size)
 
 def print_project(projects, p):
     p_split = p.split('/')
@@ -82,10 +94,10 @@ def print_project(projects, p):
         print('The project must be identified by client/project')
     else:
         print(name)
-        print_separation(name, paths.project_name)
-        print_separation(name, paths.footage_name)
-        print_separation(name, paths.render_name)
-        print_separation(name, paths.cache_name)
+        print_separation(p, projects, name, paths.project_name)
+        print_separation(p, projects, name, paths.footage_name)
+        print_separation(p, projects, name, paths.render_name)
+        print_separation(p, projects, name, paths.cache_name)
 
 
 
@@ -124,7 +136,7 @@ def ask_info(projects):
         if command == 'help':
             usage()
         else:
-            print_all()
+            print_all(projects)
         command = input('>>> ')
 
 
