@@ -1,0 +1,47 @@
+=========================================
+bcn/waves
+project 
+    WORK ........2.179 GB
+    STORAGE .... 2.086 GB
+    NAS ........ NA
+render 
+    WORK ........2.179 GB
+    STORAGE .... NA
+    NAS ........ NA
+cache 
+    WORK ....... 2.179 GB
+    STORAGE .... 2.086 GB
+    NAS  ........2.179 GB
+========================================
+bcn/waves
+project 
+    WORK ........2.179 GB
+    STORAGE .... 2.086 GB
+    NAS ........ NA
+render 
+    WORK ........2.179 GB
+    STORAGE .... 2.086 GB
+    NAS ........ 2.179 GB
+cache 
+    WORK ....... 2.179 GB
+    STORAGE .... 2.086 GB
+    NAS  ........2.179 GB
+=======================================
+bcn/waves
+project 
+    WORK ........NA
+    STORAGE .... 2.086 GB
+    NAS ........ 2.179 GB
+render 
+    WORK ........NA
+    STORAGE .... 2.086 GB
+    NAS ........ 2.179 GB
+cache 
+    WORK ....... 2.179 GB
+    STORAGE .... 2.086 GB
+    NAS  ........2.179 GB
+
+copy bcn/* project work storage 
+fetch all 
+fetcj clietn x
+fetch projec x 
