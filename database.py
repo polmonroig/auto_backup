@@ -31,7 +31,7 @@ class ProjectDatabase:
             if action[1] == None:
                 self.actions[action[0]]()
             else:
-                self.actions[action[0]](action[1])
+                self.actions[action[0]](*action[1])
 
     def add_project(self, root, sep, project, client):
         name = os.path.join(client, project)
@@ -45,7 +45,6 @@ class ProjectDatabase:
             self.projects[name][root] = [sep]
 
 
-    # WORK/PROJECT/client/projectName
     def find_clients(self, root, sep):
         path = os.path.join(root, sep)
         if os.path.exists(path):
