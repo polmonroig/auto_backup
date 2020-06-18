@@ -109,19 +109,26 @@ def print_client(projects, client):
         print_project(projects, id)
         print("========================================")
 
+def usage():
+
+
 def ask_info(projects):
     # print(projects)
-    print('Initializing prompt')
+
+    print('Type "help", "fetch", "copy" or "backup".')
     command = input('>> ')
     while command != 'exit':
-        print_all()
+        if command == 'help':
+            usage()
+        else:
+            print_all()
         command = input('>> ')
 
 
 
 
 def main():
-    print('Starting search')
+    print('Initializing...')
     projects = get_projects()
     if projects != None:
         ask_info(projects)
