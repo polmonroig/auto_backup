@@ -130,13 +130,23 @@ def usage():
 
 def ask_info(projects):
     # print(projects)
-    print('Type "help", "fetch", "copy" or "backup".')
+    print('Type "help", "fetch", "copy".')
     command = input('>> ')
     while command != 'exit':
-        if command == 'help':
+        command = command.split()
+        if command[0] == 'help':
             usage()
-        else:
-            print_all(projects)
+        elif command[0] == 'fetch' and len(command) >= 2:
+            if command[1] == 'all':
+                print_all()
+            elif command[1] == 'client' and len(command) >= 3:
+                print_client(projects, command[2])
+            elif command[1] == 'project' and len(command) >= 3:
+                print_project(projects, command[2]) 
+
+        elif command[0] == 'copy':
+            print('Sorry, currently not implemented')
+
         command = input('>>> ')
 
 
