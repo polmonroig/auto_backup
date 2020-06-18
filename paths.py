@@ -9,6 +9,7 @@ root_dirs = [work_dir, storage_dir, backup_dir]
 work_name = 'WORK'
 storage_name = 'STORAGE'
 backup_name = 'NAS'
+root_names = [work_name, storage_name, backup_name]
 
 # separation names
 project_name = 'project'

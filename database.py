@@ -60,22 +60,13 @@ class ProjectDatabase:
 
     def print_separation(self, p, name, sep):
         print(sep)
-        work_size = 'NA'
-        storage_size = 'NA'
-        backup_size = 'NA'
-        if paths.work_dir in self.projects[name]:
-            work = self.projects[name][paths.work_dir]
-            work_size = ProjectDatabase.get_size(p, work, paths.work_dir, paths.work_name, sep)
-        if paths.storage_dir in self.projects[name]:
-            storage = self.projects[name][paths.storage_dir]
-            storage_size = ProjectDatabase.get_size(p, storage, paths.storage_dir, paths.storage_name, sep)
-        if paths.backup_dir in self.projects[name]:
-            backup = self.projects[name][paths.backup_dir]
-            backup_size = ProjectDatabase.get_size(p, backup, paths.backup_dir, paths.backup_name, sep)
+        for root_name, root_dir in zip(paths.root_names, paths.root_dirs):
+            size = 'NA'
+            if root_dir in self.projects[name]:
+                root = self.projects[name][root_dir]
+                size = ProjectDatabase.get_size(p, root, root_dir, root_name, sep)
+            print('     '+ ProjectDatabase.format_dots(root_name, 12) + size)
 
-        print('     '+ paths.work_name +'........ ' + work_size)
-        print('     '+ paths.storage_name +' .... ' + storage_size)
-        print('     '+ paths.backup_name +' ........ ' + backup_size)
 
     def print_project(self, p):
         p_split = p.split('/')
@@ -131,6 +122,15 @@ class ProjectDatabase:
 
 
     # STATIC
+
+    @staticmethod
+    def format_dots(name, dots):
+        name += ' '
+        while len(name) < dots:
+            name += '.'
+        name += ' '
+        return name
+
     @staticmethod
     def recursive_get_size(path):
         if os.path.isdir(path):
