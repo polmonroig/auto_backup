@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+from version import __version__
 import paths
 import readline 
 import os
@@ -148,7 +149,7 @@ def list_projects_in(projects, client):
 ## MAIN LOOP 
 
 def usage():
-    print('Welcome to the automatic project backup manager!\n')
+    print('Welcome to the automatic project backup utility!\n')
     print('This application has some basic commands')
     print('    help: is how you got here')
     print('    fetch [project/client/all]: displays information about a set of files')
@@ -187,7 +188,7 @@ def ask_info(projects):
 
 
 def main():
-    print('Initializing...')
+    print('Backup utility', __version__)
     projects = get_projects()
     if projects != None:
         ask_info(projects)
