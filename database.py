@@ -16,7 +16,8 @@ class ProjectDatabase:
                         Parser.PRINT_PROJECT : self.print_project,
                         Parser.LIST_PROJECTS : self.list_projects,
                         Parser.LIST_CLIENTS : self.list_clients,
-                        Parser.LIST_PROJECTS_IN : self.list_projects_in}
+                        Parser.LIST_PROJECTS_IN : self.list_projects_in,
+                        Parser.COPY_PROJECT : self.copy_project}
 
     def empty(self):
         return len(self.projects) == 0
@@ -87,12 +88,12 @@ class ProjectDatabase:
 
     def print_client(self, client):
         keys = self.projects.keys()
-        selected_self.projects = []
+        selected_projects = []
         for key in keys:
             arr = key.split('/')
             if arr[0] == client:
-                selected_self.projects.append(key)
-        for id in selected_self.projects:
+                selected_projects.append(key)
+        for id in selected_projects:
             self.print_project(id)
             print("========================================")
 
@@ -119,6 +120,10 @@ class ProjectDatabase:
             if key[0] == client:
                 print(key[1])
 
+    def copy_project(self, project, sep, src, dst):
+        src_path = os.path.join(src, sep, project)
+        dst_path = os.path.join(dst, sep, project)
+        print('Coping from', src_path, 'to', dst_path)
 
     # STATIC
 

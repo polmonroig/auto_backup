@@ -46,25 +46,26 @@ class Parser:
     def parse(self):
         if self.command[0] == 'help':
             self.usage()
-            return (Parser.IGNORE_COMMAND, (None))
+            return (Parser.IGNORE_COMMAND, (None,))
         elif self.command[0] == 'fetch' and len(self.command) >= 2:
             if self.command[1] == 'all':
-                return (Parser.PRINT_ALL, (None))
+                return (Parser.PRINT_ALL, (None,))
             elif self.command[1] == 'client' and len(self.command) >= 3:
-                return (Parser.PRINT_CLIENT, self.command[2])
+                return (Parser.PRINT_CLIENT, (self.command[2],))
             elif self.command[1] == 'project' and len(self.command) >= 3:
                 return (Parser.PRINT_PROJECT, self.command[2])
         elif self.command[0] == 'list' and len(self.command) >= 2:
             if self.command[1] == 'projects':
                 if len(self.command) >= 4 and self.command[2] == 'in':
-                    return (Parser.LIST_PROJECTS_IN, self.command[3])
+                    return (Parser.LIST_PROJECTS_IN, (self.command[3],))
                 else:
-                    return (Parser.LIST_PROJECTS, (None))
+                    return (Parser.LIST_PROJECTS, (None,))
             elif self.command[1] == 'clients':
-                return (Parser.LIST_CLIENTS, (None))
+                return (Parser.LIST_CLIENTS, (None,))
         elif self.command[0] == 'copy':
             return (Parser.COPY_PROJECT, (self.command[1],
                     self.command[2], self.command[3], self.command[4]))
+        return (Parser.IGNORE_COMMAND, (None))
 
     def loop(self):
         print('Type "help", "fetch", "copy", exit and list.')
