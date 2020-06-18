@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import paths
+import readline 
 import os
 
 
@@ -57,7 +58,8 @@ def format_size(size):
 def get_size(p, separations, root, name, separation):
     dir_size = 'NA'
     for sep in separations:
-        if sep == separation:
+        tmp = sep.split('/')[-2]
+        if tmp == separation:
             path = os.path.join(root, sep, p)
             size = recursive_get_size(path)
             dir_size = format_size(size)
@@ -67,7 +69,6 @@ def get_size(p, separations, root, name, separation):
 
 def print_separation(p, projects, name, sep):
     print(sep)
-    sep = sep + '/'
     work_size = 'NA'
     storage_size = 'NA'
     backup_size = 'NA'
@@ -121,29 +122,62 @@ def print_client(projects, client):
         print_project(projects, id)
         print("========================================")
 
+
+
+def list_projects(projects): 
+    keys = projects.keys()
+    for key in keys: 
+        print(key)
+
+def list_clients(projects):
+    keys = projects.keys()
+    clients = set()
+    for key in keys: 
+        key = key.split('/')
+        clients.add(key[0])
+    for client in clients:
+        print(client) 
+
+def list_projects_in(projects, client):
+    keys = projects.keys()
+    for key in keys: 
+        key = key.split('/')
+        if key[0] == client:
+            print(key[1])    
+
+## MAIN LOOP 
+
 def usage():
     print('Welcome to the automatic project backup manager!\n')
     print('This application has some basic commands')
     print('    help: is how you got here')
     print('    fetch [project/client/all]: displays information about a set of files')
-    print('    copy [project] [category] [from] [to]: copies files from a project into the corresponding directory\n')
+    print('    copy [project] [category] [from] [to]: copies files from a project into the corresponding directory')
+    print('    list [clients/projects]: displays a list of the posible clients and projects\n')
 
 def ask_info(projects):
     # print(projects)
-    print('Type "help", "fetch", "copy".')
-    command = input('>> ')
+    print('Type "help", "fetch", "copy", exit and list.')
+    command = input('>>> ')
     while command != 'exit':
         command = command.split()
         if command[0] == 'help':
             usage()
         elif command[0] == 'fetch' and len(command) >= 2:
             if command[1] == 'all':
-                print_all()
+                print_all(projects)
             elif command[1] == 'client' and len(command) >= 3:
                 print_client(projects, command[2])
             elif command[1] == 'project' and len(command) >= 3:
-                print_project(projects, command[2]) 
-
+                print_project(projects, command[2])
+        elif command[0] == 'list' and len(command) >= 2:
+            if command[1] == 'projects':
+                if len(command) >= 4 and command[2] == 'in':
+                    list_projects_in(projects, command[3])
+                else:
+                    list_projects(projects)
+            elif command[1] == 'clients':
+                list_clients(projects)
         elif command[0] == 'copy':
             print('Sorry, currently not implemented')
 

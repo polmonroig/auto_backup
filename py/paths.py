@@ -1,7 +1,7 @@
 
 # root directories
-work_dir = 'WORK/'
-storage_dir = '/mnt/STORAGE/'
+work_dir = 'mnt/WORK/'
+storage_dir = '/mnt/STORAGE/Projects/'
 backup_dir = '/mnt/NAS/'
 root_dirs = [work_dir, storage_dir, backup_dir]
 
