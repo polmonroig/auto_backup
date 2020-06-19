@@ -36,6 +36,9 @@ class Parser:
                          ('fetch ', '[project/client/all] [name]: displays information about a set of files'),
                          ('copy', '[project] [category] [from] [to]: copies files from a project into the corresponding directory'),
                          ('list', '[clients/projects] (in client)?: displays a list of the possible clients and projects'),
+                         ('load', ': loads the corresponding databases'),
+                         ('add', '[database/category]: adds a database or a category to the program'),
+                         ('explore', '[project] [category] [database]: opens the file explorer (e.g. nautilus) in the selected project'),
                          ('exit', ':exits application')]
         self.command = None
 
