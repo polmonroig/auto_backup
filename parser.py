@@ -43,6 +43,12 @@ class Parser:
             print('   ', command[0], command[1])
         print()
 
+    def read_file(self, file_name):
+        fd = open(file_name, 'r')
+        for line in fd:
+            self.command = line.split()
+            yield self.parse()
+
     def read(self):
         self.command = input('>>> ').split()
 

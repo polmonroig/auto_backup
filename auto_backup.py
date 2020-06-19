@@ -6,6 +6,10 @@ from database import ProjectDatabase
 
 def init(database):
     parser = Parser()
+    init_file = '.config'
+    for action in parser.read_file(init_file):
+        database.interact(action)
+
     for action in parser.loop():
         database.interact(action)
 
