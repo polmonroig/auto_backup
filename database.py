@@ -1,5 +1,6 @@
 from parser import Parser
 import os
+import subprocess
 
 class ProjectDatabase:
 
@@ -19,9 +20,12 @@ class ProjectDatabase:
                         Parser.COPY_PROJECT : self.copy_project,
                         Parser.LOAD: self.load,
                         Parser.ADD_DATABASE : self.add_database,
-                        Parser.ADD_CATEGORY : self.add_category}
+                        Parser.ADD_CATEGORY : self.add_category,
+                        Parser.EXPLORE : self.explore}
         self.databases = []
         self.categories = []
+
+
 
     def add_database(self, name, dir):
         self.databases.append((name, dir))
@@ -140,6 +144,13 @@ class ProjectDatabase:
         src_path = os.path.join(src, sep, project)
         dst_path = os.path.join(dst, sep, project)
         print('Coping from', src_path, 'to', dst_path)
+
+
+    def explore(self, project, category, db):
+        db = ProjectDatabase.find_pair(db, self.databases)
+        category = ProjectDatabase.find_pair(category, self.categories)
+        path = os.path.join(db, category, project)
+        subprocess.Popen(['nautilus'])
 
     # STATIC
 

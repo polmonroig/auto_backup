@@ -29,6 +29,8 @@ class Parser:
     ADD_DATABASE = 10
     ADD_CATEGORY = 11
 
+    EXPLORE = 12
+
     def __init__(self):
         self.commands = [('help', 'is how you got here'),
                          ('fetch ', '[project/client/all] [name]: displays information about a set of files'),
@@ -81,6 +83,9 @@ class Parser:
                 return (Parser.ADD_DATABASE, (self.command[2], self.command[3]))  # name location
             elif self.command[1] == 'category':
                 return (Parser.ADD_CATEGORY, (self.command[2], self.command[3]))
+        elif self.command[0] == 'explore':
+            return (Parser.EXPLORE, (self.command[1], self.command[2], self.command[3]))
+
         return (Parser.IGNORE_COMMAND, (None))
 
     def loop(self):
