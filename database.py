@@ -1,4 +1,5 @@
 from parser import Parser
+from shutil import copyfile
 import os
 import subprocess
 
@@ -144,6 +145,7 @@ class ProjectDatabase:
         src_path = os.path.join(src, sep, project)
         dst_path = os.path.join(dst, sep, project)
         print('Coping from', src_path, 'to', dst_path)
+        ProjectDatabase.copy_files(src_path, dst_path)
 
 
     def explore(self, project, category, db):
@@ -153,6 +155,24 @@ class ProjectDatabase:
         subprocess.Popen(['nautilus'])
 
     # STATIC
+
+    @staticmethod
+    def copy_files(src, dst):
+        if not os.path.exists(dst):
+            os.makedirs(dst)
+        files = os.listdir(src)
+        for file in files:
+            complete_src_path = os.path.join(src, file)
+            complete_dst_path = os.path.join(dst, file)
+            if os.path.isdir(complete_src_path):
+                if not os.path.exists(complete_dst_path):
+                    os.makedirs(complete_dst_path)
+                for sub_file in os.listdir(complete_src_path):
+                    files.append(os.path.join(file, sub_file))
+            elif not os.path.exists(complete_dst_path):
+                copyfile(complete_src_path, complete_dst_path)
+
+
 
     @staticmethod
     def find_pair(fst, array):

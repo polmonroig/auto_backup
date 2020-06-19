@@ -92,7 +92,7 @@ class Parser:
         return (Parser.IGNORE_COMMAND, (None))
 
     def loop(self):
-        print('Type "help", "fetch", "copy", exit and list.')
+        print('Type "help", "fetch", "copy", "exit" and "list".')
         self.read()
         while self.command[0] != 'exit':
             yield self.parse()
