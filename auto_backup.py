@@ -2,11 +2,16 @@
 from version import __version__
 from parser import Parser
 from database import ProjectDatabase
-
+import os
 
 def init(database):
     parser = Parser()
-    init_file = '.config'
+    exe = os.path.dirname(os.path.realpath(__file__))
+    exe = exe.split('/')
+    init_file = '/'
+    for file in exe:
+        init_file = os.path.join(init_file, file)
+    init_file = os.path.join(init_file, '.config')
     for action in parser.read_file(init_file):
         database.interact(action)
 
