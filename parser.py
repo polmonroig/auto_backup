@@ -67,7 +67,7 @@ class Parser:
             elif self.command[1] == 'client' and len(self.command) >= 3:
                 return (Parser.PRINT_CLIENT, (self.command[2],))
             elif self.command[1] == 'project' and len(self.command) >= 3:
-                return (Parser.PRINT_PROJECT, self.command[2])
+                return (Parser.PRINT_PROJECT, (self.command[2],))
         elif self.command[0] == 'list' and len(self.command) >= 2:
             if self.command[1] == 'projects':
                 if len(self.command) >= 4 and self.command[2] == 'in':
