@@ -134,11 +134,21 @@ class ProjectDatabase:
                 print(key[1])
 
     def copy_project(self, project, sep, src, dst):
+        sep = ProjectDatabase.find_pair(sep, self.categories)
+        src = ProjectDatabase.find_pair(src, self.databases)
+        dst = ProjectDatabase.find_pair(dst, self.databases)
         src_path = os.path.join(src, sep, project)
         dst_path = os.path.join(dst, sep, project)
         print('Coping from', src_path, 'to', dst_path)
 
     # STATIC
+
+    @staticmethod
+    def find_pair(fst, array):
+        for pair in array:
+            if fst == pair[0]:
+                return pair[1]
+        return None
 
     @staticmethod
     def format_dots(name, dots):
