@@ -152,7 +152,7 @@ class ProjectDatabase:
         db = ProjectDatabase.find_pair(db, self.databases)
         category = ProjectDatabase.find_pair(category, self.categories)
         path = os.path.join(db, category, project)
-        subprocess.Popen(['nautilus'])
+        subprocess.Popen(['nautilus', path])
 
     # STATIC
 
