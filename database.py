@@ -1,5 +1,4 @@
 from parser import Parser
-import paths
 import os
 
 class ProjectDatabase:
@@ -17,19 +16,33 @@ class ProjectDatabase:
                         Parser.LIST_PROJECTS : self.list_projects,
                         Parser.LIST_CLIENTS : self.list_clients,
                         Parser.LIST_PROJECTS_IN : self.list_projects_in,
-                        Parser.COPY_PROJECT : self.copy_project}
+                        Parser.COPY_PROJECT : self.copy_project,
+                        Parser.LOAD: self.load,
+                        Parser.ADD_DATABASE : self.add_database,
+                        Parser.ADD_CATEGORY : self.add_category}
+        self.databases = []
+        self.categories = []
+
+    def add_database(self, name, dir):
+        self.databases.append((name, dir))
+
+    def add_category(self, name, dir):
+        self.categories.append((name, dir))
 
     def empty(self):
         return len(self.projects) == 0
 
     def load(self):
-        for root in paths.root_dirs: # work, storage, backup
-            for sep in paths.separation_dirs: # project, footage, cache, render
-                self.find_clients(root, sep)
+        self.project = {}
+        for root in self.databases: # work, storage, backup
+            for sep in self.categories: # project, footage, cache, render
+                self.find_clients(root[1], sep[1])
+        if self.empty():
+            print('No projects were found')
 
     def interact(self, action):
         if action[0] != Parser.IGNORE_COMMAND:
-            if action[1] == None:
+            if action[1][0] == None:
                 self.actions[action[0]]()
             else:
                 self.actions[action[0]](*action[1])
@@ -60,7 +73,7 @@ class ProjectDatabase:
 
     def print_separation(self, p, name, sep):
         print(sep)
-        for root_name, root_dir in zip(paths.root_names, paths.root_dirs):
+        for root_name, root_dir in self.databases:
             size = 'NA'
             if root_dir in self.projects[name]:
                 root = self.projects[name][root_dir]
@@ -77,8 +90,8 @@ class ProjectDatabase:
             print('The project must be identified by client/project')
         else:
             print(name)
-            for sep in paths.separation_names:
-                self.print_separation(p, name, sep)
+            for sep in self.categories:
+                self.print_separation(p, name, sep[0])
 
     def print_all(self):
         ids = self.projects.keys()

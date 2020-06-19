@@ -13,11 +13,7 @@ def init(database):
 def main():
     print('Backup utility', __version__)
     database = ProjectDatabase()
-    database.load()
-    if database.empty():
-        print('No files where found, exiting application...')
-    else:
-        init(database)
+    init(database)
 
 
 if __name__ == '__main__':

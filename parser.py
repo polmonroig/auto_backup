@@ -25,6 +25,9 @@ class Parser:
     LIST_PROJECTS_IN = 7
 
     COPY_PROJECT = 8
+    LOAD = 9
+    ADD_DATABASE = 10
+    ADD_CATEGORY = 11
 
     def __init__(self):
         self.commands = [('help', 'is how you got here'),
@@ -65,6 +68,13 @@ class Parser:
         elif self.command[0] == 'copy':
             return (Parser.COPY_PROJECT, (self.command[1],
                     self.command[2], self.command[3], self.command[4]))
+        elif self.command[0] == 'load':
+            return (Parser.LOAD, (None, ))
+        elif self.command[0] == 'add':
+            if self.command[1] == 'database':
+                return (Parser.ADD_DATABASE, (self.command[2], self.command[3]))  # name location
+            elif self.command[1] == 'category':
+                return (Parser.ADD_CATEGORY, (self.command[2], self.command[3]))
         return (Parser.IGNORE_COMMAND, (None))
 
     def loop(self):
