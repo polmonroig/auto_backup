@@ -23,13 +23,14 @@ class Parser:
     LIST_PROJECTS = 5
     LIST_CLIENTS = 6
     LIST_PROJECTS_IN = 7
+    LIST_PROJECTS_IN_IN = 8
 
-    COPY_PROJECT = 8
-    LOAD = 9
-    ADD_DATABASE = 10
-    ADD_CATEGORY = 11
+    COPY_PROJECT = 9
+    LOAD = 10
+    ADD_DATABASE = 11
+    ADD_CATEGORY = 12
 
-    EXPLORE = 12
+    EXPLORE = 13
 
     def __init__(self):
         self.commands = [('help', 'is how you got here'),
@@ -71,7 +72,10 @@ class Parser:
         elif self.command[0] == 'list' and len(self.command) >= 2:
             if self.command[1] == 'projects':
                 if len(self.command) >= 4 and self.command[2] == 'in':
-                    return (Parser.LIST_PROJECTS_IN, (self.command[3],))
+                    if len(self.command) >= 6 and self.command[4] == 'in':
+                        return (Parser.LIST_PROJECTS_IN_IN, (self.command[3], self.command[5]))
+                    else:
+                        return (Parser.LIST_PROJECTS_IN, (self.command[3],))
                 else:
                     return (Parser.LIST_PROJECTS, (None,))
             elif self.command[1] == 'clients':

@@ -18,6 +18,7 @@ class ProjectDatabase:
                         Parser.LIST_PROJECTS : self.list_projects,
                         Parser.LIST_CLIENTS : self.list_clients,
                         Parser.LIST_PROJECTS_IN : self.list_projects_in,
+                        Parser.LIST_PROJECTS_IN_IN : self.list_projects_in_in,
                         Parser.COPY_PROJECT : self.copy_project,
                         Parser.LOAD: self.load,
                         Parser.ADD_DATABASE : self.add_database,
@@ -38,7 +39,7 @@ class ProjectDatabase:
         return len(self.projects) == 0
 
     def load(self):
-        self.project = {}
+        self.projects = {}
         for root in self.databases: # work, storage, backup
             for sep in self.categories: # project, footage, cache, render
                 self.find_clients(root[1], sep[1])
@@ -138,6 +139,17 @@ class ProjectDatabase:
             if key[0] == client:
                 print(key[1])
 
+    def list_projects_in_in(self, client, db):
+        keys = self.projects.keys()
+        db = ProjectDatabase.find_pair(db, self.databases)
+        if db == None:
+            print('Hmm, the current database is not listed, are you sure you typed it right?')
+        else:
+            for key in keys:
+                splited_key = key.split('/')
+                if splited_key[0] == client and len(self.projects[key][db]) > 0:
+                    print(splited_key[1])
+
     def copy_project(self, project, sep, src, dst):
         sep = ProjectDatabase.find_pair(sep, self.categories)
         src = ProjectDatabase.find_pair(src, self.databases)
@@ -205,12 +217,15 @@ class ProjectDatabase:
     @staticmethod
     def get_size(p, separations, root, name, separation):
         dir_size = 'NA'
-        for sep in separations:
-            tmp = sep.split('/')[-2]
-            if tmp == separation:
-                path = os.path.join(root, sep, p)
-                size = ProjectDatabase.recursive_get_size(path)
-                dir_size = ProjectDatabase.format_size(size)
-                break
+        try:
+            for sep in separations:
+                tmp = sep.split('/')[-2]
+                if tmp == separation:
+                    path = os.path.join(root, sep, p)
+                    size = ProjectDatabase.recursive_get_size(path)
+                    dir_size = ProjectDatabase.format_size(size)
+                    break
+        except:
+            print('     Ups, something wrong happened while reading the file at database '+ root +', try reloading the database')
 
         return dir_size
