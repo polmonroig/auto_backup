@@ -4,6 +4,7 @@ Auto backup is an easy to use interactive CLI made to manage a distributed proje
 
 ## Interactive mode 
 The main mode that is used when using the application is the **interactive mode**, in this mode, the user can execute commands sequentially and get a response inmediately. 
+![example](docs/clients.png)
 
 ## Scripting mode 
 As an additional functionality, auto_backup is built up as command parser, thus it is able to parse input files and create automated 
