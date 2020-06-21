@@ -1,5 +1,6 @@
 # Automatic database backup system  
 Auto backup is an easy to use interactive CLI made to manage a distributed projects database. Each database is organized in different sub-databases/categories that are shared simmetrically between each distributed database. This categories contain within different clients and inside each client different projects are included. Each database works independently and each might contain different clients and different categories of the same project. The CLI provides the user a way to interact with the database from which it can view all the databases and compare their contents; as a backup utility, it also enables the functionality of copying categories of a project between databases. 
+![example](docs/database.png)
 
 ## Interactive mode 
 The main mode that is used when using the application is the **interactive mode**, in this mode, the user can execute commands sequentially and get a response inmediately. 
