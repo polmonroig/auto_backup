@@ -85,7 +85,7 @@ class Parser:
                     self.command[2], self.command[3], self.command[4]))
         elif self.command[0] == 'load':
             return (Parser.LOAD, (None, ))
-        elif self.command[0] == 'add':
+        elif self.command[0] == 'add' and len(self.command) >= 3:
             if self.command[1] == 'database':
                 return (Parser.ADD_DATABASE, (self.command[2], self.command[3]))  # name location
             elif self.command[1] == 'category':
