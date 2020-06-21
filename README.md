@@ -3,7 +3,7 @@ Auto backup is an easy to use interactive CLI made to manage a distributed proje
 ![example](docs/database.png)
 
 ## Interactive mode 
-The main mode that is used when using the application is the **interactive mode**, in this mode, the user can execute commands sequentially and get a response inmediately. 
+The main mode that is used when using the application is the **interactive mode**, in this mode, the user can execute commands sequentially and get a response inmediately. In the interactive mode it is very simple and easy to interact with each of the databases clients and projects independently. Each time you launch the CLI a set of databases is loaded, this databases are user specified, this way it is very easy to configure different instances of auto_backup that manage a different set of databses or categories. 
 ![example](docs/clients.png)
 
 ## Scripting mode 
